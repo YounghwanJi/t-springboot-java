@@ -51,3 +51,32 @@ CREATE TABLE users (
 -- 생성일자로 정렬/검색이 많다면 인덱스 추가
 -- CREATE INDEX idx_users_created_at ON users(created_at);
 ```
+
+# APIs
+## Users (/api/v1/users)
+- POST /
+- GET /{id}
+- GET /
+- PUT /{id}
+- DELETE /{id}
+
+# Test
+## http
+### http-client.private.env.json
+- Unversioned Files (in .gitignore)
+```json
+{
+  "dev": {
+    "authToken": "dev-token-here"
+  },
+  "qa": {
+    "authToken": "qa-token-here"
+  },
+  "stg": {
+    "authToken": "stg-token-here"
+  },
+  "prd": {
+    "authToken": "prd-token-here"
+  }
+}
+```

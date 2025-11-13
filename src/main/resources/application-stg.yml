@@ -6,5 +6,6 @@ spring:
     driver-class-name: org.postgresql.Driver
 
 logging:
+  config: classpath:logging/logback-stg.xml
   level:
-    root: debug
+    root: info

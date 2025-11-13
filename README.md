@@ -3,9 +3,6 @@
 - Java 21
 - Gradle
 
-- Dependency
-  - spring-boot-starter-web
-
 # Setup
 ## PostgreSQL
 ### install by docker container

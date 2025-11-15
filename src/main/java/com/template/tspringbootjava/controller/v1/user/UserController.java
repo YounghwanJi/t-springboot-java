@@ -1,12 +1,12 @@
 package com.template.tspringbootjava.controller.v1.user;
 
+import com.template.tspringbootjava.dto.common.PageResponseDto;
 import com.template.tspringbootjava.dto.user.UserCreateRequestDto;
 import com.template.tspringbootjava.dto.user.UserResponseDto;
 import com.template.tspringbootjava.dto.user.UserUpdateRequestDto;
 import com.template.tspringbootjava.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -45,9 +45,9 @@ public class UserController {
      * GET /api/users?page=0&size=10&sort=createdAt,desc
      */
     @GetMapping
-    public ResponseEntity<Page<UserResponseDto>> getAllUsers(
+    public ResponseEntity<PageResponseDto<UserResponseDto>> getAllUsers(
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<UserResponseDto> response = userService.getAllUsers(pageable);
+        PageResponseDto<UserResponseDto> response = userService.getAllUsers(pageable);
         return ResponseEntity.ok(response);
     }
 

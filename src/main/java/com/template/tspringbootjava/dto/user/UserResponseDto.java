@@ -16,6 +16,7 @@ public record UserResponseDto(
         Instant createdAt,
         Instant updatedAt
 ) {
+
     public static UserResponseDto from(UserEntity entity) {
         return new UserResponseDto(
                 entity.getId(),

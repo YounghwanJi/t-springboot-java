@@ -2,6 +2,9 @@
 - SpringBoot 3.5.7
 - Java 21
 - Gradle
+- DB: PostgreSQL
+  - Spring DATA JPA
+- In-memory data store: Redis
 
 # Setup
 ## PostgreSQL
@@ -48,7 +51,23 @@ CREATE TABLE users (
 -- 생성일자로 정렬/검색이 많다면 인덱스 추가
 -- CREATE INDEX idx_users_created_at ON users(created_at);
 ```
-
+## Redis
+### install by docker container
+``` bash
+$ docker run --name my-postgres \
+  -e POSTGRES_USER=myuser \
+  -e POSTGRES_PASSWORD=mypassword \
+  -e POSTGRES_DB=mydb \
+  -p 5432:5432 \
+  -v postgres_data:/var/lib/postgresql/data \
+  -d postgres:16
+ 
+ # or use /docs/progresql/docker-compose.yml
+ $ docker-compose up -d # run
+ $ docker compose down # stop
+ $ docker-compose down -v # stop and remove data
+ 
+```
 # APIs
 ## Users (/api/v1/users)
 - POST /
@@ -58,7 +77,7 @@ CREATE TABLE users (
 - DELETE /{id}
 
 # Test
-## http
+## http (exception miss yet. (2025/11/15))
 ### http-client.private.env.json
 - Unversioned Files (in .gitignore)
 ```json

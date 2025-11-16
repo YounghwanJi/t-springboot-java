@@ -9,3 +9,9 @@ logging:
   config: classpath:logging/logback-prd.xml
   level:
     root: info
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

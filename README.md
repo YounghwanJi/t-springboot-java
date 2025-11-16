@@ -77,7 +77,7 @@ $ docker run --name my-postgres \
 - DELETE /{id}
 
 # Test
-## http (exception miss yet. (2025/11/15))
+## http
 ### http-client.private.env.json
 - Unversioned Files (in .gitignore)
 ```json

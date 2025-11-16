@@ -6,6 +6,8 @@ import com.template.tspringbootjava.dto.common.PageResponseDto;
 import com.template.tspringbootjava.dto.user.UserCreateRequestDto;
 import com.template.tspringbootjava.dto.user.UserResponseDto;
 import com.template.tspringbootjava.dto.user.UserUpdateRequestDto;
+import com.template.tspringbootjava.exception.CustomException;
+import com.template.tspringbootjava.exception.errorcode.UserErrorCode;
 import com.template.tspringbootjava.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +36,7 @@ public class UserService {
     public UserResponseDto createUser(UserCreateRequestDto request) {
         // 이메일 중복 체크
         if (userRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다: " + request.email());
+            throw new CustomException(UserErrorCode.EMAIL_CONFLICT, ("이미 존재하는 이메일입니다: " + request.email()));
         }
 
         // 엔티티 생성 (실제로는 비밀번호 암호화 필요)
@@ -65,7 +67,7 @@ public class UserService {
 //            return null;
 //        }
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다: " + id));
+                .orElseThrow(() -> new CustomException(UserErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다: " + id));
         return UserResponseDto.from(user);
     }
 
@@ -100,7 +102,7 @@ public class UserService {
     )
     public UserResponseDto updateUser(Long id, UserUpdateRequestDto request) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다: " + id));
+                .orElseThrow(() -> new CustomException(UserErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다: " + id));
 
         // 변경 감지(Dirty Checking)를 통한 업데이트
         // UserEntity에 업데이트 메서드 추가 필요
@@ -132,7 +134,7 @@ public class UserService {
     })
     public void deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("사용자를 찾을 수 없습니다: " + id);
+            throw new CustomException(UserErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다: " + id);
         }
         userRepository.deleteById(id);
     }

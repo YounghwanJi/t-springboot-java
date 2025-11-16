@@ -172,7 +172,7 @@ Content-Type: {{contentType}}
 
 > {%
     client.test("중복 이메일 에러", function() {
-        client.assert(response.status === 400, "응답 코드는 400이어야 합니다");
+        client.assert(response.status === 400 || response.status === 409, "400 또는 409 에러여야 합니다");
     });
 %}
 
